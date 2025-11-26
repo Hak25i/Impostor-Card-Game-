@@ -1,0 +1,163 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffe082, #ffb347);
+    color: #3a2500;
+}
+
+.app {
+    background: #fffdf9;
+    padding: 2.8rem 3.2rem;
+    border-radius: 32px;
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+    width: 95%;
+    text-align: center;
+}
+
+/* ====== العناوين ====== */
+
+h1 {
+    font-size: 2.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #b45f06;
+    margin-bottom: 2rem;
+}
+
+/* ====== الـ Controls فوق ====== */
+
+.controls {
+    margin-bottom: 1.5rem;
+}
+
+.controls label {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.controls-row {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+#players-input {
+    width: 80px;
+    padding: 0.45rem;
+    border-radius: 999px;
+    border: 1px solid #f2a93b;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* ====== الأزرار ====== */
+
+button {
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 0.6rem 1.8rem;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    transition: 0.15s;
+}
+
+/* زر Start Game برتقالي */
+.primary-btn,
+#start-btn {
+    background: #ff9800;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.5);
+}
+
+.primary-btn:hover,
+#start-btn:hover {
+    background: #ffa726;
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: #ffe0b2;
+    color: #5d3a00;
+}
+
+.secondary-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.message {
+    margin-top: 0.6rem;
+    color: #7a5b33;
+}
+
+/* ====== الكروت ====== */
+
+.cards-container {
+    margin-top: 1.8rem;
+    margin-bottom: 1.8rem;   /* مسافة زيادة عن زر New Round */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.1rem;
+}
+
+.card {
+    width: 120px;             /* أصغر شوي */
+    height: 170px;            /* أقل ارتفاع عشان ما تلمس الزر */
+    background: linear-gradient(135deg, #fff4e0, #ffe3c4);
+    border-radius: 20px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+    transition: 0.15s;
+    text-align: center;
+    border: 2px solid #f2b56f;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+/* شكل الكرت وهو مفتوح عادي (كلمة عادية) */
+.card.revealed {
+    background: linear-gradient(135deg, #fff8e6, #ffe5d0);
+}
+
+/* النص داخل الكرت */
+.card-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* لون الأمبوستر وهو مفتوح */
+.card.impostor.revealed {
+    background: linear-gradient(135deg, #ffdad8, #ffb4b4);
+    border-color: #e84a4a;
+}
+
+/* الكرت بعد ما يتقفل نهائياً */
+.card.closed {
+    background: #eeeeee;
+    color: #777;
+    cursor: default;
+    border-color: #ccc;
+}
