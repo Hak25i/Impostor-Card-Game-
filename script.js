@@ -48,13 +48,16 @@ function createCards(numPlayers) {
                 card.dataset.revealed = "true";
                 card.classList.add("revealed");
 
-                if (card.dataset.role === "impostor") {
-                    card.classList.add("impostor");
-                    text.textContent = "أمبوستر ❗";
-                } else {
-                    card.classList.add("crewmate");
-                    text.textContent = word;
-                }
+               if (card.dataset.role === "impostor") {
+    // يعطى كلمة مختلفة بدون ما يدري أنه إمبوستر
+    let fakeWord = pickWord();
+    while (fakeWord === word) {
+        fakeWord = pickWord(); // ضمان كلمة مختلفة عن كلمة اللاعبين
+    }
+    text.textContent = fakeWord; 
+} else {
+    text.textContent = word;
+}
 
             } else {
                 card.dataset.revealed = "false";
