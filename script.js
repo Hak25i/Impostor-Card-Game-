@@ -112,7 +112,7 @@ function createCards(numPlayers) {
             } else {
                 card.classList.remove("revealed");
                 card.classList.add("closed");
-                text.textContent = "تم الفتح ✔ ✅";
+                text.textContent = "تم الفتح  ✅";
             }
         });
 
