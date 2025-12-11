@@ -149,10 +149,7 @@ button {
 }
 
 /* لون الأمبوستر وهو مفتوح */
-.card.impostor.revealed {
-    background: linear-gradient(135deg, #ffdad8, #ffb4b4);
-    border-color: #e84a4a;
-}
+.card.impostor.revealed {}
 
 /* الكرت بعد ما يتقفل نهائياً */
 .card.closed {
