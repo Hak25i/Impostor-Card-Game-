@@ -148,8 +148,11 @@ button {
     font-weight: 700;
 }
 
-/* لون الأمبوستر وهو مفتوح */
-.card.impostor.revealed {}
+
+.card.impostor.revealed {
+    background: linear-gradient(135deg, #ffd6d6, #ff9a9a);
+    border-color: #e53935;
+}
 
 /* الكرت بعد ما يتقفل نهائياً */
 .card.closed {
