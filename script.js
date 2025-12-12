@@ -73,6 +73,7 @@ function pickUniqueWord() {
     remainingWords.splice(index, 1);
     return word;
 }
+let lastImpostorIndex = -1;
 
 function createCards(numPlayers) {
     cardsContainer.innerHTML = "";
