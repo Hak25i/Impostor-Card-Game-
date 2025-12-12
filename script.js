@@ -3,8 +3,18 @@ const startBtn = document.getElementById("start-btn");
 const newRoundBtn = document.getElementById("new-round-btn");
 const cardsContainer = document.getElementById("cards-container");
 const messageEl = document.getElementById("message");
+// الاصوااات 
+const SND_START = "sounds/game-start-317318.mp3";
+const SND_OPEN = "sounds/page-flip-47177.mp3";
+const SND_CLOSE = "sounds/computer-mouse-click-352734.mp3";
+const SND_ROUND =   "sounds/success-340660.mp3";
 
-// أكبر قائمة كلمات عربية متنوعة
+function playSound(src) {
+    const a = new Audio(src);
+    a.currentTime = 0;
+    a.play().catch(() => {});
+}
+
 const WORD_POOL = [
     // أطعمة و فواكه
     "تفاحة","برتقال","ليمون","موز","عنب","فراولة","كيوي","بطيخ","شمام","توت",
@@ -40,35 +50,34 @@ const WORD_POOL = [
     "كرة","بالون","هدية","ساعة رملية","مظلة","مصباح","ريموت","مفتاح سيارة","بطاقة",
 
     // مهن
-    "طبيب","مهندس","معلم","مبرمج","فنان","شرطي","طيار","بحّار","جندي","سائق", "خبير مالي ",
+    "طبيب","مهندس","معلم","مبرمج","فنان","شرطي","طيار","بحّار","جندي","سائق", "خبير مالي "
 
     // كلمات عشوائية ممتعة
-    "قوس قزح","لمبة","سحابة","ممحاة","شريحة","وردة","زهرة","ريشة","صندوق",
-    "خاتم","قلادة","لعبة","حلوى","ورق","مسك","خطوة","مغناطيس","طبشورة"
+    ,"قوس قزح","لمبة","سحابة","ممحاة","شريحة","وردة","زهرة","ريشة","صندوق",
+    "خاتم","قلادة","لعبة","حلوى","ورق","مسك ","خطوة","مغناطيس","طبشورة"
 ];
-// 👇 هنا نخزن الكلمات المتبقية في هذه الجلسة (Start Game وحدة)
+
 let remainingWords = [...WORD_POOL];
 
-// نرجع الكلمات لحالتها الأصلية لما نضغط Start Game
 function resetWordsPool() {
     remainingWords = [...WORD_POOL];
 }
 
-// نختار كلمة عشوائية من الباقي، ونشيلها من القائمة عشان ما تتكرر
+
 function pickUniqueWord() {
     if (remainingWords.length === 0) {
-        return null; // ما فيه كلمات
+        return null; 
     }
     const index = Math.floor(Math.random() * remainingWords.length);
     const word = remainingWords[index];
-    remainingWords.splice(index, 1); // حذف الكلمة من القائمة
+    remainingWords.splice(index, 1);
     return word;
 }
 
 function createCards(numPlayers) {
     cardsContainer.innerHTML = "";
 
-    // نحتاج كلمتين مختلفتين: وحدة للاعبين العاديين، ووحدة للأمبوستر
+
     if (remainingWords.length < 2) {
         messageEl.textContent = "ما عاد فيه كلمات جديدة 🤍 اضغطي Start Game لبداية جديدة.";
         return;
@@ -76,9 +85,9 @@ function createCards(numPlayers) {
 
     const impostorIndex = Math.floor(Math.random() * numPlayers);
 
-    // كلمة واحدة لكل الكرو (نفس الكلمة)
+
     const crewWord = pickUniqueWord();
-    // كلمة مختلفة للأمبوستر
+ 
     const impostorWord = pickUniqueWord();
 
     for (let i = 0; i < numPlayers; i++) {
@@ -93,26 +102,29 @@ function createCards(numPlayers) {
 
         card.appendChild(text);
 
-        // أول ضغطة: يفتح الكرت ويشوف الكلمة
-        // ثاني ضغطة: يقفل الكرت للأبد
         card.addEventListener("click", () => {
-            if (card.classList.contains("closed")) return; // مقفل خلاص
+            
+            if (card.classList.contains("closed")) return; 
 
             if (card.dataset.revealed === "false") {
+                playSound(SND_OPEN);
+
                 card.dataset.revealed = "true";
                 card.classList.add("revealed");
 
                 if (card.dataset.role === "impostor") {
-                    // الأمبوستر يشوف كلمة مختلفة بس شكلها عادي مثلهم
+                   
                     text.textContent = impostorWord;
                 } else {
                     text.textContent = crewWord;
                 }
 
             } else {
+                playSound(SND_CLOSE);
+
                 card.classList.remove("revealed");
                 card.classList.add("closed");
-                text.textContent = "تم الفتح ✅";
+                text.textContent = "تم الفتح  ✅";
             }
         });
 
@@ -129,16 +141,18 @@ startBtn.addEventListener("click", () => {
         messageEl.textContent = "أدخلي عدد لاعبين ٣ أو أكثر.";
         return;
     }
-
-    // بداية لعبة جديدة: رجّعي الكلمات كاملة
+    playSound(SND_START);
+   
     resetWordsPool();
     createCards(num);
     newRoundBtn.disabled = false;
 });
 
 newRoundBtn.addEventListener("click", () => {
+    playSound(SND_ROUND);
+
     const num = Number(playersInput.value);
     if (num >= 3) {
-        createCards(num); // نفس الجلسة، لكن بكلمات جديدة ما تكررت
+        createCards(num);
     }
 });
