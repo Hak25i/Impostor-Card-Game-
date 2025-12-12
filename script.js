@@ -84,7 +84,16 @@ function createCards(numPlayers) {
         return;
     }
 
-    const impostorIndex = Math.floor(Math.random() * numPlayers);
+    let impostorIndex = Math.floor(Math.random() * numPlayers);
+
+// امنعي تكرار نفس الأمبوستر مرتين متتالية (إذا عدد اللاعبين > 1)
+if (numPlayers > 1) {
+    while (impostorIndex === lastImpostorIndex) {
+        impostorIndex = Math.floor(Math.random() * numPlayers);
+    }
+}
+
+lastImpostorIndex = impostorIndex;
 
 
     const crewWord = pickUniqueWord();
